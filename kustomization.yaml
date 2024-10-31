@@ -7,7 +7,7 @@ kind: Kustomization
 
 
 helmCharts: #ref: https://kubectl.docs.kubernetes.io/references/kustomize/builtins/#_helmchartinflationgenerator_
-  - name: argo-cd
+  - name: argo-cd #Chart Name
     repo: https://argoproj.github.io/argo-helm
     version: 7.6.12 #Chart Version
     releaseName: argocd
@@ -15,10 +15,10 @@ helmCharts: #ref: https://kubectl.docs.kubernetes.io/references/kustomize/builti
     valuesFile: values/argocd.yaml #Customed values.yaml
     includeCRDs: true # helm이 CRD를 생성해야 하는 경우 true
 
-  - name: prometheus
+  - name: kube-prometheus-stack #Chart Name
     repo: https://prometheus-community.github.io/helm-charts
-    version: 25.28.0
-    releaseName: prometheus-community
+    version: 65.5.1
+    releaseName: prometheus
     namespace: monitoring
     valuesFile: values/prometheus.yaml
     includeCRDs: true
