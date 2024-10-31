@@ -1,0 +1,19 @@
+# Run kustomize build . --enable-helm | kubectl apply -f -
+# kustomize build하면 charts/ 디렉터리가 자동으로 생성되는데, 이는 캐싱 역할을 한다.
+# to Delete: kustomize build . --enable-helm | kubectl delete -f - 
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: argocd
+
+
+helmCharts: #ref: https://kubectl.docs.kubernetes.io/references/kustomize/builtins/#_helmchartinflationgenerator_
+  - name: argo-cd
+    repo: https://argoproj.github.io/argo-helm
+    version: 7.6.12 #Chart Version
+    releaseName: argocd
+    namespace: argocd
+    valuesFile: values/argocd.yaml #Customed values.yaml
+    includeCRDs: true # helm이 CRD를 생성해야 하는 경우 true
+
+resources:
+  - resources/namespace.yaml #ns argocd 생성
