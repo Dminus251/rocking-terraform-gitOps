@@ -3,7 +3,7 @@
 # to Delete: kustomize build . --enable-helm | kubectl delete -f - 
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-namespace: argocd
+#namespace: argocd #모든 리소스가 이 namespace에 생성됨 (helmChart의 namespace를 monitoring으로 설정하더라도)
 
 
 helmCharts: #ref: https://kubectl.docs.kubernetes.io/references/kustomize/builtins/#_helmchartinflationgenerator_
@@ -15,5 +15,13 @@ helmCharts: #ref: https://kubectl.docs.kubernetes.io/references/kustomize/builti
     valuesFile: values/argocd.yaml #Customed values.yaml
     includeCRDs: true # helm이 CRD를 생성해야 하는 경우 true
 
+  - name: prometheus
+    repo: https://prometheus-community.github.io/helm-charts
+    version: 25.28.0
+    releaseName: prometheus-community
+    namespace: monitoring
+    valuesFile: values/prometheus.yaml
+    includeCRDs: true
+
 resources:
-  - resources/namespace.yaml #ns argocd 생성
+  - resources/namespace.yaml #generate argocd, monitoring namespace
