@@ -4,3 +4,12 @@
 2. CRD 메타데이터 주석이 너무 큼
 
 두 번째 에러 때문에 첫 번째 에러도 발생한 것 같고, github에서 CRD 코드만 가져와서 resource 블록에서 따로 설치해주면 해결될 것 같다.
+
+********
+11/1
+
+-> 다음과 같은 명령들을 실행해서 crd를 수동 설치 후 kustomize 하면 에러가 해결됨 'kubectl apply --server-side -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.77.1/example/prometheus-operator-crd/monitoring.coreos.com_alertmanagerconfigs.yaml' 
+
+하지만 gitOps를 실현하려면 선언적으로 구성해야 함 수동으로 설치할 수 없음
+crd들의 yaml 파일을 다운받아서 kustomize로 선언하니까 10/31의 2번 에러가 지속 발생함. 정확히는 아래와  같은 에러 메시지
+'prometheusagents.monitoring.coreos.com" is invalid: metadata.annotations: Too long: must have at most 262144 bytes'

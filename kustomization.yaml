@@ -21,7 +21,5 @@ helmCharts: #ref: https://kubectl.docs.kubernetes.io/references/kustomize/builti
     releaseName: prometheus
     namespace: monitoring
     valuesFile: values/prometheus.yaml
-    includeCRDs: true
+    includeCRDs: false
 
-resources:
-  - resources/namespace.yaml #generate argocd, monitoring namespace
